@@ -133,26 +133,26 @@
 <body>
 
 <header>
-  <h1>✦ Sandbox</h1>
+  <h1>&#10022; Sandbox</h1>
   <div class="controls">
     <button class="btn outline" id="clearBtn">Clear</button>
-    <button class="btn" id="runBtn">▶ Run</button>
+    <button class="btn" id="runBtn">&#9654; Run</button>
   </div>
 </header>
 
 <div class="main">
   <div class="panel">
     <div class="panel-label">HTML</div>
-    <textarea id="editor" spellcheck="false"><h1>Hello, world!<\/h1>
-<p>Edit this HTML and click <strong>Run<\/strong> to see it live.<\/p>
+    <textarea id="editor" spellcheck="false"><h1>Hello, world!</h1>
+<p>Edit this HTML and click <strong>Run</strong> to see it live.</p>
 <style>
   body { font-family: system-ui; padding: 2rem; }
   h1 { color: #58a6ff; }
-<\/style>
+</style>
 <script>
   document.body.style.background = '#0d1117';
   document.body.style.color = '#c9d1d9';
-<\/script></textarea>
+</script></textarea>
   </div>
   <div class="panel">
     <div class="panel-label">Preview</div>
@@ -160,7 +160,7 @@
   </div>
 </div>
 
-<div class="status" id="status">Ready — paste HTML, click Run</div>
+<div class="status" id="status">Ready &mdash; paste HTML, click Run</div>
 
 <script>
   const editor = document.getElementById('editor');
@@ -183,12 +183,10 @@
     status.textContent = 'Cleared';
   });
 
-  // Ctrl+Enter to run
   editor.addEventListener('keydown', (e) => {
     if (e.ctrlKey && e.key === 'Enter') render();
   });
 
-  // Auto-run on first load
   render();
 </script>
 
