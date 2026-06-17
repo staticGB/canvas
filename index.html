@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sandbox — Live HTML Playground</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d1117;
+    color: #c9d1d9;
+    font-family: system-ui, -apple-system, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+  }
+
+  header h1 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #58a6ff;
+  }
+
+  .btn {
+    background: #238636;
+    color: #fff;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .btn:hover { background: #2ea043; }
+  .btn.outline {
+    background: transparent;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+    margin-right: 8px;
+  }
+  .btn.outline:hover { background: #21262d; }
+
+  .main {
+    flex: 1;
+    display: flex;
+    gap: 0;
+    min-height: 0;
+  }
+
+  .panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .panel + .panel { border-left: 1px solid #30363d; }
+
+  .panel-label {
+    padding: 6px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #8b949e;
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
+  }
+
+  textarea {
+    flex: 1;
+    background: #0d1117;
+    color: #c9d1d9;
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 16px;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    tab-size: 2;
+  }
+
+  textarea:focus { background: #0d1117; }
+
+  iframe {
+    flex: 1;
+    border: none;
+    background: #fff;
+    width: 100%;
+  }
+
+  .placeholder {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #484f58;
+    font-size: 14px;
+    background: #0d1117;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .status {
+    font-size: 12px;
+    color: #8b949e;
+    padding: 6px 12px;
+    background: #161b22;
+    border-top: 1px solid #30363d;
+  }
+
+  @media (max-width: 700px) {
+    .main { flex-direction: column; }
+    .panel + .panel { border-left: none; border-top: 1px solid #30363d; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>✦ Sandbox</h1>
+  <div class="controls">
+    <button class="btn outline" id="clearBtn">Clear</button>
+    <button class="btn" id="runBtn">▶ Run</button>
+  </div>
+</header>
+
+<div class="main">
+  <div class="panel">
+    <div class="panel-label">HTML</div>
+    <textarea id="editor" spellcheck="false"><h1>Hello, world!<\/h1>
+<p>Edit this HTML and click <strong>Run<\/strong> to see it live.<\/p>
+<style>
+  body { font-family: system-ui; padding: 2rem; }
+  h1 { color: #58a6ff; }
+<\/style>
+<script>
+  document.body.style.background = '#0d1117';
+  document.body.style.color = '#c9d1d9';
+<\/script></textarea>
+  </div>
+  <div class="panel">
+    <div class="panel-label">Preview</div>
+    <iframe id="preview" sandbox="allow-scripts allow-same-origin"></iframe>
+  </div>
+</div>
+
+<div class="status" id="status">Ready — paste HTML, click Run</div>
+
+<script>
+  const editor = document.getElementById('editor');
+  const preview = document.getElementById('preview');
+  const runBtn = document.getElementById('runBtn');
+  const clearBtn = document.getElementById('clearBtn');
+  const status = document.getElementById('status');
+
+  function render() {
+    const html = editor.value;
+    preview.srcdoc = html;
+    status.textContent = 'Rendered (' + (html.length).toLocaleString() + ' chars)';
+  }
+
+  runBtn.addEventListener('click', render);
+
+  clearBtn.addEventListener('click', () => {
+    editor.value = '';
+    preview.srcdoc = '';
+    status.textContent = 'Cleared';
+  });
+
+  // Ctrl+Enter to run
+  editor.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'Enter') render();
+  });
+
+  // Auto-run on first load
+  render();
+<\/script>
+
+</body>
+</html>
